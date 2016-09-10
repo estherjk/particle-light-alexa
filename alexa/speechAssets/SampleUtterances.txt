@@ -1,2 +1,6 @@
 ParticleStateIntent to turn {state}
 ParticleStateIntent turn {state}
+ParticleColorIntent to change to {color}
+ParticleColorIntent change to {color}
+ParticleColorIntent to turn {color}
+ParticleColorIntent turn {color}

@@ -44,8 +44,8 @@ ParticleSkill.prototype.eventHandlers.onSessionStarted = function (sessionStarte
 
 ParticleSkill.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
     console.log("ParticleSkill onLaunch requestId: " + launchRequest.requestId + ", sessionId: " + session.sessionId);
-    var speechOutput = "Welcome to Particle Light. You can ask me to turn on or off.";
-    var repromptText = "You can ask me to turn on or off.";
+    var speechOutput = "Welcome to Particle Light. You can ask me to turn on or off. You can also ask me to change colors, like red, green, blue, or white.";
+    var repromptText = "You can ask me to turn on or off. You can also ask me to change colors, like red, green, blue, or white.";
     response.ask(speechOutput, repromptText);
 };
 
@@ -83,8 +83,34 @@ ParticleSkill.prototype.intentHandlers = {
           response.tell("Sorry, I didn't catch what you said");
         }
     },
+    "ParticleColorIntent": function (intent, session, response) {
+        var slot = intent.slots.color;
+        var slotValue = slot ? slot.value : "";
+
+        if(slotValue) {
+          var fnPr = particle.callFunction({
+            deviceId: PARTICLE_DEVICE_ID,
+            name: slot.name,
+            argument: slotValue,
+            auth: PARTICLE_ACCESS_TOKEN
+          });
+
+          fnPr.then(
+            function(data) {
+              console.log('Function called succesfully:', data);
+
+              var speechOutput = "The light is now " + slotValue;
+              response.tellWithCard(speechOutput, "Particle Light", speechOutput);
+            }, function(err) {
+              console.log('An error occurred:', err);
+            });
+        }
+        else {
+          response.tell("Sorry, I didn't catch what you said");
+        }
+    },
     "AMAZON.HelpIntent": function (intent, session, response) {
-        var speechOutput = "You can ask me to turn on or off.";
+        var speechOutput = "You can ask me to turn on or off. You can also ask me to change colors, like red, green, blue, or white.";
         response.ask(speechOutput);
     }
 };

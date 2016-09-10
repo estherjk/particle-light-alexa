@@ -10,6 +10,15 @@
       ]
     },
     {
+      "intent": "ParticleColorIntent",
+      "slots": [
+        {
+          "name": "color",
+          "type": "LIST_OF_COLORS"
+        }
+      ]
+    },
+    {
       "intent": "AMAZON.HelpIntent"
     }
   ]
