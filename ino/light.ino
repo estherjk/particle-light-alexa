@@ -22,6 +22,7 @@ void setup() {
 
 int setLightState(String state) {
   if(state == "on") {
+    ring.setBrightness(BRIGHTNESS);
     changeColor(ring.Color(0, 0, 0, 255)); // GRB+W
   }
   else if(state == "off") {
