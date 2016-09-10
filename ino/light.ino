@@ -11,6 +11,8 @@
 Adafruit_NeoPixel ring = Adafruit_NeoPixel(PIXEL_COUNT, PIXEL_PIN, PIXEL_TYPE);
 
 void setup() {
+  Serial.begin(9600);
+
   ring.setBrightness(BRIGHTNESS);
   ring.begin();
   ring.show(); // Initialize all pixels to 'off'
@@ -21,6 +23,8 @@ void setup() {
 }
 
 int setLightState(String state) {
+  Serial.println("state: " + state);
+
   if(state == "on") {
     ring.setBrightness(BRIGHTNESS);
     changeColor(ring.Color(0, 0, 0, 255)); // GRB+W
@@ -32,6 +36,8 @@ int setLightState(String state) {
 }
 
 int setLightColor(String color) {
+  Serial.println("color: " + color);
+
   if(color == "red") {
     changeColor(ring.Color(0, 255, 0)); // GRB
   }
@@ -47,8 +53,21 @@ int setLightColor(String color) {
 }
 
 int setLightBrightness(String brightness) {
-  ring.setBrightness(brightness.toInt());
-  ring.show();
+  int brightnessInt = brightness.toInt();
+
+  if(brightnessInt >= 0 && brightnessInt <= 255) {
+    Serial.println("brightness: " + brightness);
+
+    ring.setBrightness(brightnessInt);
+    ring.show();
+
+    return brightnessInt;
+  }
+  else {
+    Serial.println("Brightness level is invalid");
+
+    return -1;
+  }
 }
 
 void changeColor(uint32_t color) {
