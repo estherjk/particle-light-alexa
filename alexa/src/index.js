@@ -109,6 +109,39 @@ ParticleSkill.prototype.intentHandlers = {
           response.tell("Sorry, I didn't catch what you said");
         }
     },
+    "ParticleBrightnessIntent": function (intent, session, response) {
+        var slot = intent.slots.brightness;
+        var slotValue = slot ? slot.value : "";
+
+        if(slotValue) {
+          var fnPr = particle.callFunction({
+            deviceId: PARTICLE_DEVICE_ID,
+            name: slot.name,
+            argument: slotValue,
+            auth: PARTICLE_ACCESS_TOKEN
+          });
+
+          fnPr.then(
+            function(data) {
+              console.log('Function called succesfully:', data);
+              var speechOutput = "";
+
+              if(data.body.return_value > -1) {
+                speechOutput = "The brightness level is now " + slotValue;
+              }
+              else {
+                speechOutput = "The brightness level is invalid. Please choose a value between 0 and 255.";
+              }
+
+              response.tellWithCard(speechOutput, "Particle Light", speechOutput);
+            }, function(err) {
+              console.log('An error occurred:', err);
+            });
+        }
+        else {
+          response.tell("Sorry, I didn't catch what you said");
+        }
+    },
     "AMAZON.HelpIntent": function (intent, session, response) {
         var speechOutput = "You can ask me to turn on or off. You can also ask me to change colors, like red, green, blue, or white.";
         response.ask(speechOutput);

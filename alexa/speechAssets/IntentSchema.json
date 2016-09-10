@@ -19,6 +19,15 @@
       ]
     },
     {
+      "intent": "ParticleBrightnessIntent",
+      "slots": [
+        {
+          "name": "brightness",
+          "type": "AMAZON.NUMBER"
+        }
+      ]
+    },
+    {
       "intent": "AMAZON.HelpIntent"
     }
   ]
