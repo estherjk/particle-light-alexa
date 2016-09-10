@@ -1,0 +1,16 @@
+{
+  "intents": [
+    {
+      "intent": "ParticleStateIntent",
+      "slots": [
+        {
+          "name": "state",
+          "type": "LIST_OF_STATES"
+        }
+      ]
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    }
+  ]
+}
