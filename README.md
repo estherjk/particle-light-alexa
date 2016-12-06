@@ -37,6 +37,10 @@ To make it easier to wire up the NeoPixel ring, I used a second breadboard to co
 
 ## Setting up Amazon Alexa Services
 
+### Adding Particle credentials to Alexa skill
+
+Update `PARTICLE_DEVICE_ID` and `PARTICLE_ACCESS_TOKEN` in `particle-light-alexa/alexa/src/index.js`. You can find your device ID at [console.particle.io/devices](https://console.particle.io/devices) and your access token under **Settings** in [build.particle.io](https://build.particle.io).
+
 ### AWS Lambda Setup
 
 1. Navigate to `particle-light-alexa/alexa/src`
