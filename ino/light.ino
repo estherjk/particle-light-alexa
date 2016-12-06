@@ -22,6 +22,12 @@ void setup() {
   Particle.function("brightness", setLightBrightness);
 }
 
+// Uncomment to test the NeoPixel ring
+/*void loop() {
+  changeColor(ring.Color(0, 255, 0)); // GRB
+  ring.show();
+}*/
+
 int setLightState(String state) {
   Serial.println("state: " + state);
 
